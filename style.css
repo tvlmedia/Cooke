@@ -2,6 +2,7 @@
    GLOBAL / BASICS
    =========================== */
 * { -webkit-user-drag: none; user-select: none; }
+
 :root {
   --sensor-scale: 1;
   --viewer-scale: 1;
@@ -20,6 +21,7 @@
   --ig-text: #f7f7f7;
   --ig-text-muted: #a3a3a3;
 }
+
 body{
   margin:0;
   background:var(--ig-bg);
@@ -28,6 +30,10 @@ body{
   font-size:14px;
   line-height:1.6;
 }
+
+/* ===========================
+   HEADER / LOGO
+   =========================== */
 #igHeader {
   width: 100%;
   display: flex;
@@ -47,6 +53,7 @@ body{
   opacity: 1;
   transform: scale(1.03);
 }
+
 /* ===========================
    CONTROLS (los van viewer)
    =========================== */
@@ -56,7 +63,6 @@ body{
   z-index:50;
   width:100%;
   margin:18px 0 20px;
-
   padding:14px 16px;
   border-radius:12px;
   background:linear-gradient(145deg,#050608,#14161b);
@@ -116,7 +122,7 @@ select:focus{
 #leftLens,#rightLens{ min-width:200px; }
 #tStopLeftSelect,#tStopRightSelect{ min-width:90px; }
 
-/* Scale chip + slider met IronGlass accent */
+/* Scale chip + slider met Cooke accent */
 #scaleCtrl.chip{
   display:inline-flex;
   align-items:center;
@@ -128,11 +134,23 @@ select:focus{
   border:1px solid #2c2c2c;
   border-radius:999px;
 }
+
 #scaleCtrl #scaleVal{
   min-width:44px;
   text-align:right;
   color:var(--ig-text-muted);
 }
+
+#scaleCtrl input[type="range"]{
+  -webkit-appearance:none;
+  appearance:none;
+  width:120px;
+  height:18px;
+  margin:0;
+  padding:0;
+  background:transparent;
+}
+
 #scaleCtrl input[type="range"]::-webkit-slider-runnable-track,
 #scaleCtrl input[type="range"]::-moz-range-track{
   height:4px;
@@ -140,6 +158,7 @@ select:focus{
   border-radius:999px;
   border-bottom:1px solid rgba(255,255,255,.25);
 }
+
 #scaleCtrl input[type="range"]::-webkit-slider-thumb,
 #scaleCtrl input[type="range"]::-moz-range-thumb{
   width:14px;
@@ -157,13 +176,14 @@ select:focus{
 
 #comparisonWrapper{
   position:relative;
-  width:100%;          /* genoeg, max-width mag weg */
+  width:100%;
   min-height:clamp(360px,56vw,900px);
   margin:0;
   background:#000;
   overflow:hidden;
   --lb-top:0px; --lb-bottom:0px; --lb-left:0px; --lb-right:0px;
 }
+
 /* buitenrand van de viewer */
 #comparisonWrapper::after{
   content:"";
@@ -174,9 +194,9 @@ select:focus{
   pointer-events:none;
 }
 
-
 /* Rechter laag (before) + Linker laag (after) */
 #beforeImage{ position:absolute; inset:0; }
+
 #beforeImgTag{
   position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; display:block;
@@ -189,6 +209,7 @@ select:focus{
   clip-path:inset(0 50% 0 0); -webkit-clip-path:inset(0 50% 0 0);
   will-change:clip-path;
 }
+
 #afterImgTag{
   position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; display:block;
@@ -205,21 +226,20 @@ select:focus{
   transform:translateX(-50%);
   width:2px;
   background:var(--ig-accent);
-  box-shadow:0 0 14px rgba(255,124,0,.6);
+  box-shadow:0 0 14px rgba(245,198,67,.6);
   cursor:ew-resize;
   z-index:10;
   touch-action:none;
 }
 
-/* ==== Outlines per helft (slider-mode) ====
-   borders op de WRAPPERS zodat clip-path niets afknipt */
+/* Outlines per helft (slider-mode) */
 #beforeImage,
 #afterWrapper{
   box-sizing:border-box;
-  border:1px solid rgba(226,107,0,0.38);  /* zelfde als buitenrand */
+  border:1px solid rgba(245,198,67,0.33);
 }
-#beforeImage{ border-left:none; }   /* top, right, bottom */
-#afterWrapper{ border-right:none; } /* top, left,  bottom */
+#beforeImage{ border-left:none; }
+#afterWrapper{ border-right:none; }
 
 /* ===========================
    FULLSCREEN
@@ -256,38 +276,69 @@ select:focus{
 #sbsWrapper{ position:absolute; inset:0; z-index:3; display:none; padding:0; box-sizing:border-box; }
 .sbs-mode #sbsWrapper{ display:flex; width:100%; height:100%; }
 
-/* Per pane outline */
-.sbs-mode #sbsWrapper .pane{
-  position:relative; flex:1 1 50%; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
-  border:1px solid rgba(255,255,255,.3);
+/* SxS-container vult de viewer */
+body.sbs-mode #sbsWrapper{
+  display:flex !important;
+  position:absolute; inset:0;
+  padding:0 !important;
+  z-index:3;
 }
-.sbs-mode #sbsWrapper .pane:first-child{ border-right:0; }
-.sbs-mode #sbsWrapper .pane:last-child { border-left:0; }
 
-/* 1px middenlijn in SxS */
-.sbs-mode #sbsWrapper::before{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:50%;
+/* elke helft */
+body.sbs-mode #sbsWrapper .pane{
+  position:relative;
+  flex:1 1 50%;
+  overflow:hidden;
+  border:1px solid rgba(245,198,67,0.33);
+}
+
+body.sbs-mode #sbsWrapper .pane:first-child{ border-right:0; }
+body.sbs-mode #sbsWrapper .pane:last-child { border-left:0; }
+
+body.sbs-mode #sbsWrapper .pane img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  transform:scale(calc(var(--sensor-scale)*var(--viewer-scale)));
+  transform-origin:center;
+  will-change:transform;
+}
+
+/* 1px middenlijntje */
+body.sbs-mode #sbsWrapper::before{
+  content:""; position:absolute; top:0; bottom:0; left:50%;
   width:1px;
-  background:rgba(255,255,255,.35);
-  box-shadow:0 0 10px rgba(0,0,0,.9);
+  background:var(--ig-accent);
+  box-shadow: 0 0 14px rgba(245,198,67,0.55);
   z-index:4;
 }
 
-
 /* geen dubbele buitenrand in SxS: viewer-rand uit */
-.sbs-mode #comparisonWrapper::after{ display:none; }
+body.sbs-mode #comparisonWrapper::after{ display:none !important; }
+
+/* viewer gewoon 100% van toolRoot */
+body.sbs-mode #comparisonWrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* SxS: zelfde breedte als normaal (1200px frame) */
+body.sbs-mode #toolRoot {
+  width: min(1200px, 96vw);
+  margin: 0 auto;
+}
+
+body.sbs-mode #toolRoot .frame-1200 {
+  width: 100%;
+}
 
 /* ===========================
    LABELS + RAW buttons
    =========================== */
 #infoContainer{
   width:100%;
-  max-width:none;      /* kan weg */
+  max-width:none;
   margin:12px 0 10px;
   padding:0 40px;
   box-sizing:border-box;
@@ -297,6 +348,7 @@ select:focus{
   gap:48px;
   color:var(--ig-text-muted);
 }
+
 .infoCol{
   flex:1 1 0;
   min-width:0;
@@ -306,10 +358,12 @@ select:focus{
   text-align:center;
   gap:10px;
 }
+
 #leftLabel,#rightLabel{
   white-space:nowrap;
   font-size:13px;
 }
+
 #infoContainer a{
   color:var(--ig-text);
   text-decoration:none;
@@ -319,24 +373,52 @@ select:focus{
   text-decoration:underline;
 }
 
+#lensInfo{
+  max-width: 1200px;
+  width: 100%;
+  margin: 16px auto 0;
+  padding: 0 40px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Lensnamen in lensInfo geel */
+#lensInfo b,
+#lensInfo strong {
+  color: var(--ig-accent);
+  font-weight: 700;
+}
 
 /* ===========================
    DETAIL VIEWER
    =========================== */
-body.dragging, body.dragging *{ user-select:none !important; -webkit-user-select:none !important; -ms-user-select:none !important; }
-#detailOverlay{ position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none; z-index:9999; overflow:visible; display:none; }
+body.dragging, body.dragging *{
+  user-select:none !important;
+  -webkit-user-select:none !important;
+  -ms-user-select:none !important;
+}
+
+#detailOverlay{
+  position:fixed; inset:0;
+  width:100vw; height:100vh;
+  pointer-events:none;
+  z-index:9999;
+  overflow:visible;
+  display:none;
+}
 #detailOverlay.active{ display:block; }
+
 .detail-view-square{
   position:absolute;
   width:260px;
   height:260px;
   overflow:hidden;
   border-radius:4px;
-
   background:rgba(5,6,8,0.96);
   box-shadow:0 0 18px rgba(0,0,0,0.9);
 }
 
+/* Cooke border + glow */
 .detail-view-square::after{
   content:"";
   position:absolute;
@@ -346,109 +428,18 @@ body.dragging, body.dragging *{ user-select:none !important; -webkit-user-select
     0 0 16px rgba(245,198,67,0.55),
     0 0 4px rgba(245,198,67,0.35) inset;
 }
-.detail-view-square img{ position:absolute; width:300%; height:auto; object-fit:cover; transform-origin:top left; }
-#leftDetail{ margin-left:-130px; } #rightDetail{ margin-left:130px; }
 
-/* oranje rand + inner glow over de volledige hexagon */
-.detail-view-square::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  -webkit-clip-path: inherit;
-  clip-path: inherit;
-
-  border: 2px solid rgba(255,124,0,0.9);
-  box-shadow:
-    0 0 14px rgba(255,124,0,0.7),
-    0 0 4px rgba(255,124,0,0.35) inset;
-}
-
-/* inhoud (zoom), mee-geclipt in de hexagon */
-.detail-view-square img {
-  position: absolute;
-  width: 300%;
-  height: auto;
-  object-fit: cover;
-  transform-origin: top left;
-
-  -webkit-clip-path: inherit;
-  clip-path: inherit;
-}
-
-/* iets dichter bij elkaar */
-#leftDetail  { margin-left: -100px; }
-#rightDetail { margin-left:  100px; }
-
-/* donkere fill + oranje rand + glow, exact als je oude square */
-.detail-view-square::before,
-.detail-view-square::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  clip-path: inherit;           /* zelfde hexagon */
-}
-
-.detail-view-square::before{
-  background:rgba(5,5,5,0.92);
-}
-
-.detail-view-square::after{
-  border:2px solid rgba(255,124,0,0.75);   /* oranje rand */
-  box-shadow:
-    0 0 18px rgba(255,124,0,0.35),
-    0 0 4px  rgba(255,124,0,0.25) inset;
-}
-
-/* image zelf ook hexagon, maar iets groter voor zoom */
+/* inhoud (zoom) */
 .detail-view-square img{
   position:absolute;
   width:300%;
   height:auto;
   object-fit:cover;
   transform-origin:top left;
-  clip-path: inherit;           /* zelfde hexagon */
 }
 
-/* iets dichter tegen elkaar aan */
-#leftDetail{  margin-left:-110px; }
-#rightDetail{ margin-left: 110px; }
-
-/* pseudo-element tekent de oranje border in dezelfde hex-vorm */
-.detail-view-square::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  -webkit-clip-path: inherit;
-  clip-path: inherit;
-
-  border: 2px solid rgba(255,124,0,0.9);
-  box-shadow:
-    0 0 14px rgba(255,124,0,0.7),
-    0 0 4px rgba(255,124,0,0.35) inset;
-}
-
-/* dichter bij elkaar */
-#leftDetail {
-  margin-left: -100px;
-}
-#rightDetail {
-  margin-left: 100px;
-}
-
-/* inhoud (zoom) */
-.detail-view-square img {
-  position: absolute;
-  width: 300%;
-  height: auto;
-  object-fit: cover;
-  transform-origin: top left;
-}
-.detail-view-square img{ position:absolute; width:300%; height:auto; object-fit:cover; transform-origin:top left; }
-#leftDetail{ margin-left:-130px; } #rightDetail{ margin-left:130px; }
+#leftDetail  { margin-left: -100px; }
+#rightDetail { margin-left:  100px; }
 
 /* ===========================
    RESPONSIVE
@@ -457,6 +448,7 @@ body.dragging, body.dragging *{ user-select:none !important; -webkit-user-select
   #cameraSelect,#sensorFormatSelect,#focalLength{ min-width:120px; }
   #scaleCtrl input[type="range"]{ width:100px; }
 }
+
 @media (max-width:767px){
   #fullscreenButton,#detailViewToggle{ display:none !important; }
   .mobile-mode #comparisonWrapper{ width:100vw; }
@@ -464,6 +456,7 @@ body.dragging, body.dragging *{ user-select:none !important; -webkit-user-select
   #lensInfo{ font-size:12px; line-height:1.4; padding:10px 12px; }
   .controls.mobile-only{ display:block !important; }
 }
+
 .controls.mobile-only{ display:none !important; }
 
 /* duplicaat-vangnet */
@@ -497,66 +490,6 @@ body.dragging, body.dragging *{ user-select:none !important; -webkit-user-select
   line-height: 1.5;
   box-sizing: border-box;
 }
-/* ====== SxS: echte cover-crop, geen letterbox, 1px middenlijn ====== */
-
-/* verberg single-view lagen in SxS */
-body.sbs-mode #afterWrapper,
-body.sbs-mode #beforeImage,
-body.sbs-mode #slider { display: none !important; }
-body.sbs-mode #fsBars { display: none !important; }
-
-/* SxS-container vult de viewer */
-body.sbs-mode #sbsWrapper{
-  display:flex !important;
-  position:absolute; inset:0;
-  padding:0 !important;            /* geen letter/pillarbox-padding */
-  z-index:3;
-}
-
-/* elke helft */
-body.sbs-mode #sbsWrapper .pane{
-  position:relative;
-  flex:1 1 50%;
-  overflow:hidden;                  /* netjes afsnijden */
-  border:1px solid rgba(255,255,255,.3);
-}
-body.sbs-mode #sbsWrapper .pane:first-child{ border-right:0; }
-body.sbs-mode #sbsWrapper .pane:last-child { border-left:0; }
-
-/* SxS images — zelfde schaal/framing als slider */
-body.sbs-mode #sbsWrapper .pane img{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover; object-position:center;
-  transform:scale(calc(var(--sensor-scale)*var(--viewer-scale)));
-  transform-origin:center;
-  will-change:transform;
-}
-/* 1px middenlijntje */
-body.sbs-mode #sbsWrapper::before{
-  content:""; position:absolute; top:0; bottom:0; left:50%;
-  width:1px; background:rgba(255,255,255,.35); z-index:4;
-}
-
-
-
-/* mobiele embed uit op desktop */
-.lens-frame-outer, .lens-frame-outer.mobile-only { display:none !important; }
-@media (max-width:767px){ .lens-frame-outer { display:block !important; } }
-body.sbs-mode #sbsWrapper .pane img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-body.sbs-mode #comparisonWrapper {
-  width: 100%;
-  max-width: none;   /* belangrijk: NIETS limiteren */
-  margin: 0;
-}
-#toolRoot{
-  width:100%;
-}
 
 /* gedeeld frame voor controls + viewer + info */
 .frame-1200{
@@ -564,7 +497,6 @@ body.sbs-mode #comparisonWrapper {
   margin:0 auto;
 }
 
-/* alles binnen dat frame exact dezelfde breedte */
 .frame-1200 .controls.desktop-only,
 .frame-1200 #comparisonWrapper,
 .frame-1200 #infoContainer{
@@ -573,19 +505,19 @@ body.sbs-mode #comparisonWrapper {
   margin-right:0;
   box-sizing:border-box;
 }
-/* === FORCE EVERYTHING IN ROW-1 ON ONE LINE === */
+
+/* row-1: alles op één regel */
 .controls.desktop-only .row-1 {
-  flex-wrap: nowrap;    /* niets mag afbreken */
-  gap: 6px;             /* kleiner tussenruimte */
+  flex-wrap: nowrap;
+  gap: 6px;
 }
 
-/* maak knoppen en dropdowns compacter in row-1 */
 .controls.desktop-only .row-1 select,
 .controls.desktop-only .row-1 .control-button,
 .controls.desktop-only .row-1 #scaleCtrl {
-  min-width: auto;      /* override */
-  padding: 0 8px;       /* compacter */
-  font-size: 12px;      /* iets kleiner zodat alles past */
+  min-width: auto;
+  padding: 0 8px;
+  font-size: 12px;
   height: 30px;
   line-height: 30px;
 }
@@ -601,71 +533,16 @@ body.sbs-mode #comparisonWrapper {
   min-width: 95px !important;
   padding: 0 8px !important;
 }
-/* === SxS: zelfde oranje style als slider-view === */
-body.sbs-mode #sbsWrapper .pane{
-  border:1px solid rgba(226,107,0,0.38);  /* oranje i.p.v. wit */
+
+/* mobiele embed uit op desktop */
+.lens-frame-outer, .lens-frame-outer.mobile-only {
+  display:none !important;
+}
+@media (max-width:767px){
+  .lens-frame-outer { display:block !important; }
 }
 
-body.sbs-mode #sbsWrapper::before{
-  background:var(--ig-accent);            /* oranje middenlijn */
-  box-shadow:0 0 12px rgba(255,124,0,.7);
-}
-
-
-
-/* viewer gewoon 100% van toolRoot */
-body.sbs-mode #comparisonWrapper {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-}
-
-/* buitenrand uit in SxS (heb je al ergens, maar voor de zekerheid) */
-body.sbs-mode #comparisonWrapper::after {
-  display: none !important;
-}
-
-/* oranje pane-randen in SxS */
-body.sbs-mode #sbsWrapper .pane {
-  border: 1px solid rgba(226,107,0,0.38) !important;
-}
-body.sbs-mode #sbsWrapper .pane:first-child { border-right: 0 !important; }
-body.sbs-mode #sbsWrapper .pane:last-child  { border-left: 0 !important; }
-
-/* middenlijn oranje */
-body.sbs-mode #sbsWrapper::before {
-  background: var(--ig-accent) !important;
-  box-shadow: 0 0 14px rgba(255,124,0,0.55) !important;
-}
-#lensInfo{
-  max-width: 1200px;     /* zelfde breedte-range als de viewer */
-  width: 100%;
-  margin: 16px auto 0;   /* centreren t.o.v. de pagina */
-  padding: 0 40px;
-  box-sizing: border-box;
-  text-align: left;      /* tekst zelf mag gewoon links blijven */
-}
-
-/* SxS: zelfde breedte als normaal (1200px frame) */
-body.sbs-mode #toolRoot {
-  width: min(1200px, 96vw);
-  margin: 0 auto;
-}
-
-body.sbs-mode #toolRoot .frame-1200 {
-  width: 100%;
-}
-
-/* Lensnamen in lensInfo oranje */
-#lensInfo b,
-#lensInfo strong {
-  color: var(--ig-accent);
-  font-weight: 700;
-}
-body.sbs-mode #sbsWrapper .pane{
-  border:1px solid rgba(245,198,67,0.33) !important;
-}
-body.sbs-mode #sbsWrapper::before{
-  background: var(--ig-accent) !important;
-  box-shadow: 0 0 14px rgba(245,198,67,0.55) !important;
+/* toolRoot full width (binnen frame-1200) */
+#toolRoot{
+  width:100%;
 }
