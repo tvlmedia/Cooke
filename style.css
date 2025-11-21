@@ -34,15 +34,19 @@ body{
 /* ===========================
    HEADER / LOGO
    =========================== */
+/* ===========================
+   HEADER / LOGO
+   =========================== */
 #igHeader {
-  width: 100%;
+  width: min(1200px, 96vw);  /* zelfde breedte als toolRoot/frame */
+  margin: 0 auto;            /* centreren op de pagina */
   display: flex;
   justify-content: center;
-  padding: 14px 0 4px;  /* minder dead space */
+  padding: 18px 0 10px;      /* iets meer ruimte onder het logo */
 }
 
 #igHeader img {
-  height: 90px;         /* kleiner, Cooke-site achtig */
+  height: 90px;              /* iets kleiner dan eerst */
   width: auto;
   opacity: 1;
   filter: drop-shadow(0 0 16px rgba(0,0,0,0.7));
@@ -50,7 +54,7 @@ body{
 }
 
 #igHeader img:hover {
-  opacity: 1;           /* geen hover-gedrag op logo */
+  opacity: 1;                /* geen hover-gedrag op logo */
 }
 
 /* ===========================
@@ -561,4 +565,18 @@ body.dragging, body.dragging *{
 /* toolRoot full width (binnen frame-1200) */
 #toolRoot{
   width:100%;
+}
+/* ===========================
+   SCALE SLIDER DOT = COOKE GEEL
+   =========================== */
+#scaleCtrl input[type="range"]::-webkit-slider-thumb,
+#scaleCtrl input[type="range"]::-moz-range-thumb,
+#scaleCtrl input[type="range"]::-ms-thumb {
+  background: var(--ig-accent) !important;
+  border: 2px solid #000;
+}
+
+#scaleCtrl .scale-dot,
+#scaleCtrl .scale-handle {
+  background: var(--ig-accent) !important;
 }
