@@ -538,3 +538,6 @@ body.dragging, body.dragging *{
 .controls:not(.desktop-only):not(.mobile-only){
   display: none !important;
 }
+iframe {
+  display: none !important;
+}
