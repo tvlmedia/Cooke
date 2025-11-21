@@ -417,18 +417,12 @@ body.sbs-mode #comparisonWrapper {
   font-weight: 700;
 }
 
-/* ===========================
-   DETAIL VIEWER
-   =========================== */
-body.dragging, body.dragging *{
-  user-select:none !important;
-  -webkit-user-select:none !important;
-  -ms-user-select:none !important;
-}
-
+/* DETAIL VIEWER – vierkant, geen shadow */
 #detailOverlay{
-  position:fixed; inset:0;
-  width:100vw; height:100vh;
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
   pointer-events:none;
   z-index:9999;
   overflow:visible;
@@ -436,13 +430,10 @@ body.dragging, body.dragging *{
 }
 #detailOverlay.active{ display:block; }
 
-/* twee identieke vierkante viewers */
-.detail-view-square{
+.detail-view-square {
   position:absolute;
   width:260px !important;
   height:260px !important;
-  max-width:260px;
-  max-height:260px;
   aspect-ratio:1 / 1 !important;
   overflow:hidden;
   border-radius:4px;
@@ -451,7 +442,8 @@ body.dragging, body.dragging *{
   box-sizing:border-box;
 }
 
-.detail-view-square::after{
+/* strakke gele rand */
+.detail-view-square::after {
   content:"";
   position:absolute;
   inset:0;
@@ -460,19 +452,14 @@ body.dragging, body.dragging *{
   pointer-events:none;
 }
 
-/* inhoud (zoom) */
-.detail-view-square img{
+/* inhoud */
+.detail-view-square img {
   position:absolute;
-  width:300%;
-  height:300%;
-  object-fit:cover;
-  transform-origin:top left;
   border:none;
   outline:none;
+  object-fit:cover;
+  transform-origin:top left;
 }
-
-#leftDetail  { margin-left:-100px; }
-#rightDetail { margin-left: 100px; }
 
 /* ===========================
    RESPONSIVE
