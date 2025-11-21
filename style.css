@@ -472,12 +472,12 @@ body.sbs-mode #comparisonWrapper {
 
 /* Linker zoomvakje iets naar links */
 #leftDetail {
-  transform: translateX(-130px);
+  transform: translateX(-133px);
 }
 
 /* Rechter zoomvakje iets naar rechts */
 #rightDetail {
-  transform: translateX(130px);
+  transform: translateX(133px);
 }
 
 /* ===========================
