@@ -38,21 +38,21 @@ body{
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 38px 0 18px; /* meer bovenruimte */
+  padding: 22px 0 6px; /* minder zwarte ruimte */
 }
 
 #igHeader img {
-  height: 92px;          /* groter, mooi zoals Cooke */
+  height: 120px;          /* flink groter logo */
   width: auto;
   opacity: 1;
   filter: drop-shadow(0 0 18px rgba(0,0,0,0.7));
-  transition: opacity .2s ease;   /* alleen fade, geen scale */
+  transition: opacity .2s ease;   /* geen scale-animatie */
 }
 
-/* Haal de scale volledig weg */
 #igHeader img:hover {
-  opacity: 1;            /* geen verandering */
+  opacity: 1;             /* geen hover-gedrag op logo */
 }
+
 /* ===========================
    CONTROLS (los van viewer)
    =========================== */
@@ -91,22 +91,24 @@ select,
     background .18s ease,
     border-color .18s ease,
     color .18s ease,
-    box-shadow .18s ease,
-    transform .06s ease;
+    box-shadow .18s ease;
 }
 
+/* Hover: wel “Cooke geel”, maar geen schaal */
 select:hover,
 .control-button:hover,
-#toggleButton:hover,#fullscreenButton:hover,#downloadPdfButton:hover{
+#toggleButton:hover,
+#fullscreenButton:hover,
+#downloadPdfButton:hover{
   background:var(--ig-accent);
   border-color:var(--ig-accent);
   color:#000;
   box-shadow:0 0 16px rgba(245,198,67,0.45);
 }
 
+/* Actief: GEEN scale meer */
 .control-button:active,
 select:active{
-  transform:translateY(0.5px) scale(0.99);
   box-shadow:none;
 }
 
@@ -429,6 +431,7 @@ body.dragging, body.dragging *{
 }
 
 /* inhoud (zoom) */
+detail-view-square img,
 .detail-view-square img{
   position:absolute;
   width:300%;
