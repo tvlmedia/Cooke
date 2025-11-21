@@ -534,3 +534,7 @@ body.dragging, body.dragging *{
 #scaleCtrl .scale-handle {
   background: var(--ig-accent) !important;
 }
+/* Oude / extra control-balk onderin volledig verbergen */
+.controls:not(.desktop-only):not(.mobile-only){
+  display: none !important;
+}
