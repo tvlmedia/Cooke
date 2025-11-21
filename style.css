@@ -460,13 +460,9 @@ body.sbs-mode #comparisonWrapper {
   object-fit:cover;
   transform-origin:top left;
 }
-/* Links/rechts offset voor de twee zoom-vensters */
-#leftDetail {
-  margin-left: -140px;  /* helft van 260px plus een beetje speling */
-}
-
+#leftDetail,
 #rightDetail {
-  margin-left: 140px;
+  margin-left: 0 !important;
 }
 
 /* ===========================
