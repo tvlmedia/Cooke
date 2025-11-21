@@ -194,31 +194,50 @@ const cameras = {
 };
 
 /* === Lens lijsten, alias-focals, files en teksten === */
-const lenses = ["IronGlass Red P","IronGlass MKII","IronGlass Zeiss Jena"];
 
+// Alleen de lenzen die je nu in de map hebt:
+const lenses = [
+  "Cooke Panchro FF",
+  "IronGlass MKII"
+];
+
+// Alias-focals:
+// – De 32mm Cooke gebruik je als 35mm representatie
+// – De 75mm Cooke is gewoon 75mm
+// – De 37mm MKII gebruik je als 35mm
+// – De 85mm MKII gebruik je als 75mm representatie
 const notes = {
-  "ironglass_red_p_35mm":"37mm","ironglass_red_p_50mm":"58mm","ironglass_mkii_35mm":"37mm","ironglass_zeiss_jena_50mm":"50mm","cooke_panchro_ff_35mm":"32mm","cooke_panchro_ff_50mm":"50mm",
-  "dzo_vespid_80mm":"75mm","dzo_vespid_85mm":"75mm","dzo_arles_80mm":"75mm","dzo_arles_85mm":"75mm","lomo_standard_speed_80mm":"75mm","lomo_standard_speed_85mm":"75mm",
-  "cooke_panchro_ff_80mm":"75mm","cooke_panchro_ff_85mm":"75mm","ironglass_zeiss_jena_80mm":"75mm","ironglass_zeiss_jena_85mm":"75mm","ironglass_red_p_80mm":"75mm",
-  "ironglass_red_p_85mm":"75mm","ironglass_mkii_80mm":"75mm","ironglass_mkii_85mm":"75mm","ironglass_red_p_75mm":"85mm","ironglass_mkii_75mm":"85mm","ironglass_zeiss_jena_75mm":"80mm",
+  "cooke_panchro_ff_35mm": "32mm",
+  "cooke_panchro_ff_75mm": "75mm",
+
+  "ironglass_mkii_35mm": "37mm",
+  "ironglass_mkii_75mm": "85mm"
 };
 
+// Voor deze Cooke-tool volgen de bestandsnamen gewoon
+// het standaardpatroon, dus we hebben geen speciale map nodig.
+// De resolver probeert automatisch o.a.:
+//   cooke_panchro_ff_32mm_t2_8_flare.jpg
+//   cooke_panchro_ff_32mm_t2_8_noflare.jpg
+//   ironglass_mkii_37mm_t2_8_flare.jpg
+//   ironglass_mkii_37mm_t2_8_noflare.jpg
 const lensImageMap = {
-  "ironglass_red_p_35mm_t2_8":"red_p_37mm_t2_8.jpg",
-  "ironglass_red_p_50mm_t2_8":"red_p_58mm_t2_8.jpg",
-  "ironglass_red_p_75mm_t2_8":"red_p_85mm_t2_8.jpg",
-  "ironglass_mkii_35mm_t2_8":"mkii_37mm_t2_8.jpg",
-  "ironglass_mkii_50mm_t2_8":"mkii_50mm_t2_8.jpg",
-  "ironglass_mkii_75mm_t2_8":"mkii_85mm_t2_8.jpg",
-  "ironglass_zeiss_jena_75mm_t2_8":"jena_80mm_t2_8.jpg",
+  // leeg laten zolang alles netjes cooke_panchro_ff_XXmm_t2_8_(no)flare.jpg heet
 };
 
+// Tekst + links voor onder de viewer en in de PDF
 const lensDescriptions = {
-  "IronGlass Red P": { text:"Extremely vintage Soviet optics with single coating, heavy character, flare and distortion. Pure, raw, unpolished glass for maximum personality.", url:"https://ironglassadapters.com/rehousing/red-p-limited-edition-soviet-lens-rehousing/" },
-  "IronGlass Zeiss Jena": { text:"Soft vintage signature without heavy distortion or wild flares. Adds character while keeping faces natural and flattering.", url:"https://ironglassadapters.com/rehousing/carl-zeiss-jena-rehousing/" },
-  "IronGlass MKII": { text:"The IronGlass MKII Soviet set is, after the RED P, the most intense variant: heavily-tweaked vintage Soviet lenses with extreme character, flare and distortion. Ideal for a raw, experimental look.", url:"https://ironglassadapters.com/rehoused-soviet-lenses/mkii/" },
- };
-
+  "Cooke Panchro FF": {
+    text:
+      "Full-frame Cooke Panchro Classic FF: moderne herinterpretatie van de legendarische Speed Panchro look. Zachte contrastovergangen, subtiele halation en typisch Cooke ‘warm & creamy’ skin tones.",
+    url: "https://cookeoptics.com/lens/cooke-panchro-classic-i-ff/"
+  },
+  "IronGlass MKII": {
+    text:
+      "De IronGlass MKII Soviet set is, na de RED P, de meest intense variant: zwaar getweakte vintage Sovjet-lenzen met veel karakter, flare en distortion. Ideaal voor een rauwe, experimentele look.",
+    url: "https://ironglassadapters.com/rehoused-soviet-lenses/mkii/"
+  }
+};
 /* === DOM refs === */
 const q = id => document.getElementById(id);
 const cameraSelect=q("cameraSelect"), sensorFormatSelect=q("sensorFormatSelect"), comparisonWrapper=q("comparisonWrapper");
@@ -228,8 +247,9 @@ const leftLabel=q("leftLabel"), rightLabel=q("rightLabel"), downloadLeftRawButto
 const flareToggle=q("flareToggle"), scaleSlider=q("scaleSlider"), scaleVal=q("scaleVal"), lensInfoDiv=q("lensInfo");
 const fullscreenBtn=q("fullscreenButton"), sbsBtn=q("sbsToggle"), toggleBtn=q("toggleButton"), infoContainer=q("infoContainer");
 const detailOverlay=q("detailOverlay"), leftDetail=q("leftDetail"), rightDetail=q("rightDetail"), detailToggleButton=q("detailViewToggle");
-const IMG_BASE="https://tvlmedia.github.io/IronGlass/images/", RAW_BASE=IMG_BASE+"raw/";
-const { jsPDF } = window.jspdf || {};
+// Beelden & RAW’s uit deze GitHub-repo
+const IMG_BASE = "images/";
+const RAW_BASE = "images/raw/";const { jsPDF } = window.jspdf || {};
 const BASE_SENSOR = cameras["Sony Venice"]["6K 3:2"];
 let sbsActive=false, isExportingPdf=false, userScale=1;
 
