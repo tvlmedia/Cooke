@@ -34,50 +34,69 @@ body{
 /* ===========================
    HEADER / LOGO
    =========================== */
-/* ===========================
-   HEADER / LOGO
-   =========================== */
 #igHeader {
-  width: min(1200px, 96vw);  /* zelfde breedte als toolRoot/frame */
-  margin: 0 auto;            /* centreren op de pagina */
-  display: flex;
-  justify-content: center;
-  padding: 18px 0 10px;      /* iets meer ruimte onder het logo */
+  width:min(1200px,96vw);
+  margin:0 auto;
+  display:flex;
+  justify-content:center;
+  padding:24px 0 14px;       /* iets lucht */
 }
 
 #igHeader img {
-  height: 90px;              /* iets kleiner dan eerst */
-  width: auto;
-  opacity: 1;
-  filter: drop-shadow(0 0 16px rgba(0,0,0,0.7));
-  transition: opacity .2s ease;
+  height:80px;
+  width:auto;
+  opacity:1;
+  filter:drop-shadow(0 0 16px rgba(0,0,0,0.7));
+  transition:opacity .2s ease;
 }
 
 #igHeader img:hover {
-  opacity: 1;                /* geen hover-gedrag op logo */
+  opacity:1;                 /* geen hover-animatie op logo */
 }
 
 /* ===========================
-   CONTROLS (los van viewer)
+   SHELL
+   =========================== */
+#toolRoot{
+  width:min(1200px,96vw);
+  margin:0 auto;
+}
+
+.frame-1200{
+  width:min(1200px,96vw);
+  margin:0 auto;
+}
+
+/* ===========================
+   CONTROLS
    =========================== */
 .controls.desktop-only{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-
-  /* zelfde breedte + centrering als logo / toolRoot */
-  width: min(1200px, 96vw);
-  margin: 10px auto 14px;      /* auto = centreren */
-
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: linear-gradient(145deg,#050608,#14161b);
-  border: 1px solid rgba(245,198,67,0.33);
+  position:sticky;
+  top:0;
+  z-index:50;
+  width:100%;
+  margin:10px 0 18px;
+  padding:12px 16px;
+  border-radius:12px;
+  background:linear-gradient(145deg,#050608,#14161b);
+  border:1px solid rgba(245,198,67,0.33);
   box-shadow:
     0 0 22px rgba(0,0,0,0.85),
     0 0 14px rgba(245,198,67,0.18);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+}
+
+.controls.desktop-only .row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:6px 8px;
+}
+
+.controls.desktop-only .row-2{
+  margin-top:6px;
 }
 
 select,
@@ -85,14 +104,14 @@ select,
 #toggleButton,
 #fullscreenButton,
 #downloadPdfButton{
-  height:28px;                /* lager */
-  line-height:26px;
-  padding:0 10px;
+  height:30px;
+  line-height:28px;
+  padding:0 11px;
   background:#050608;
   color:var(--ig-text);
   border:1px solid #2c2c2c;
   border-radius:999px;
-  font-size:12px;             /* iets kleiner */
+  font-size:12px;
   letter-spacing:.06em;
   text-transform:uppercase;
   cursor:pointer;
@@ -104,7 +123,7 @@ select,
     box-shadow .18s ease;
 }
 
-/* Hover: wel “Cooke geel”, maar geen schaal */
+/* Hover: Cooke geel, geen scale */
 select:hover,
 .control-button:hover,
 #toggleButton:hover,
@@ -114,14 +133,12 @@ select:hover,
   border-color:var(--ig-accent);
   color:#000;
   box-shadow:0 0 12px rgba(245,198,67,0.4);
-  transform:none !important;
 }
 
-/* Actief: GEEN scale meer */
 .control-button:active,
 select:active{
   box-shadow:none;
-  transform:none !important;
+  transform:none;
 }
 
 .control-button:focus,
@@ -133,19 +150,21 @@ select:focus{
 
 #cameraSelect,
 #sensorFormatSelect,
-#focalLength{ min-width:120px; }
-#leftLens,
-#rightLens{ min-width:180px; }
-#tStopLeftSelect,
-#tStopRightSelect{ min-width:80px; }
+#focalLength{ min-width:130px; }
 
-/* Scale chip + slider met Cooke accent */
+#leftLens,
+#rightLens{ min-width:200px; }
+
+#tStopLeftSelect,
+#tStopRightSelect{ min-width:90px; }
+
+/* Scale chip + slider */
 #scaleCtrl.chip{
   display:inline-flex;
   align-items:center;
-  gap:.4rem;
-  height:28px;
-  padding:0 8px;
+  gap:.45rem;
+  height:30px;
+  padding:0 9px;
   white-space:nowrap;
   background:#050608;
   border:1px solid #2c2c2c;
@@ -153,7 +172,7 @@ select:focus{
 }
 
 #scaleCtrl #scaleVal{
-  min-width:40px;
+  min-width:44px;
   text-align:right;
   color:var(--ig-text-muted);
   font-size:11px;
@@ -162,7 +181,7 @@ select:focus{
 #scaleCtrl input[type="range"]{
   -webkit-appearance:none;
   appearance:none;
-  width:110px;
+  width:120px;
   height:16px;
   margin:0;
   padding:0;
@@ -179,6 +198,8 @@ select:focus{
 
 #scaleCtrl input[type="range"]::-webkit-slider-thumb,
 #scaleCtrl input[type="range"]::-moz-range-thumb{
+  -webkit-appearance:none;
+  appearance:none;
   width:12px;
   height:12px;
   border-radius:50%;
@@ -187,11 +208,15 @@ select:focus{
   cursor:pointer;
 }
 
+/* hard-force – sommige browsers zijn koppig */
+#scaleCtrl input[type="range"]::-ms-thumb{
+  background:var(--ig-accent);
+  border:2px solid #000;
+}
+
 /* ===========================
    VIEWER
    =========================== */
-#toolRoot{ width:min(1200px,96vw); margin:0 auto; }
-
 #comparisonWrapper{
   position:relative;
   width:100%;
@@ -340,22 +365,11 @@ body.sbs-mode #comparisonWrapper {
   margin: 0;
 }
 
-/* SxS: zelfde breedte als normaal (1200px frame) */
-body.sbs-mode #toolRoot {
-  width: min(1200px, 96vw);
-  margin: 0 auto;
-}
-
-body.sbs-mode #toolRoot .frame-1200 {
-  width: 100%;
-}
-
 /* ===========================
-   LABELS + RAW buttons
+   LABELS + RAW
    =========================== */
 #infoContainer{
   width:100%;
-  max-width:none;
   margin:10px 0 8px;
   padding:0 40px;
   box-sizing:border-box;
@@ -429,7 +443,7 @@ body.dragging, body.dragging *{
   position:absolute;
   width:240px;
   height:240px;
-  aspect-ratio:1/1;              /* altijd perfect vierkant */
+  aspect-ratio:1/1;
   overflow:hidden;
   border-radius:4px;
   background:rgba(5,6,8,0.96);
@@ -437,7 +451,7 @@ body.dragging, body.dragging *{
   box-sizing:border-box;
 }
 
-/* Cooke border + glow – altijd geel, geen wit */
+/* Cooke border + glow */
 .detail-view-square::after{
   content:"";
   position:absolute;
@@ -460,8 +474,8 @@ body.dragging, body.dragging *{
   outline:none;
 }
 
-#leftDetail  { margin-left: -100px; }
-#rightDetail { margin-left:  100px; }
+#leftDetail  { margin-left:-100px; }
+#rightDetail { margin-left: 100px; }
 
 /* ===========================
    RESPONSIVE
@@ -513,72 +527,9 @@ body.dragging, body.dragging *{
   box-sizing: border-box;
 }
 
-/* gedeeld frame voor controls + viewer + info */
-.frame-1200{
-  width:min(1200px,96vw);
-  margin:0 auto;
-}
-
-.frame-1200 .controls.desktop-only,
-.frame-1200 #comparisonWrapper,
-.frame-1200 #infoContainer{
-  width:100%;
-  margin-left:0;
-  margin-right:0;
-  box-sizing:border-box;
-}
-
-/* row-1: alles op één regel, strakker */
-.controls.desktop-only .row-1 {
-  flex-wrap: nowrap;
-  gap: 4px;
-}
-
-.controls.desktop-only .row-1 select,
-.controls.desktop-only .row-1 .control-button,
-.controls.desktop-only .row-1 #scaleCtrl {
-  min-width: auto;
-  padding: 0 8px;
-  font-size: 11px;
-  height: 26px;
-  line-height: 24px;
-}
-
-/* camera + sensor dropdowns iets smaller */
-.controls.desktop-only .row-1 #cameraSelect,
-.controls.desktop-only .row-1 #sensorFormatSelect {
-  min-width: 105px;
-}
-
-/* flare toggle specifiek iets smaller */
-#flareToggle {
-  min-width: 90px !important;
-  padding: 0 8px !important;
-}
-
-/* mobiele embed uit op desktop */
-.lens-frame-outer,
-.lens-frame-outer.mobile-only {
-  display:none !important;
-}
-@media (max-width:767px){
-  .lens-frame-outer { display:block !important; }
-}
-
-/* toolRoot full width (binnen frame-1200) */
-#toolRoot{
-  width:100%;
-}
 /* ===========================
-   SCALE SLIDER DOT = COOKE GEEL
+   SCALE SLIDER DOT HARD-FORCE
    =========================== */
-#scaleCtrl input[type="range"]::-webkit-slider-thumb,
-#scaleCtrl input[type="range"]::-moz-range-thumb,
-#scaleCtrl input[type="range"]::-ms-thumb {
-  background: var(--ig-accent) !important;
-  border: 2px solid #000;
-}
-
 #scaleCtrl .scale-dot,
 #scaleCtrl .scale-handle {
   background: var(--ig-accent) !important;
