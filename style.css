@@ -464,6 +464,21 @@ body.sbs-mode #comparisonWrapper {
 #rightDetail {
   margin-left: 0 !important;
 }
+/* Detail viewers links/rechts rond de cursor (slider-mode) */
+#leftDetail,
+#rightDetail {
+  margin-left: 0 !important;   /* geen oude offset */
+}
+
+/* Linker zoomvakje iets naar links */
+#leftDetail {
+  transform: translateX(-140px);
+}
+
+/* Rechter zoomvakje iets naar rechts */
+#rightDetail {
+  transform: translateX(140px);
+}
 
 /* ===========================
    RESPONSIVE
