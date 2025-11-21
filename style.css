@@ -39,7 +39,7 @@ body{
   margin:0 auto;
   display:flex;
   justify-content:center;
-  padding:24px 0 14px;       /* iets lucht */
+  padding:24px 0 14px;
 }
 
 #igHeader img {
@@ -51,7 +51,7 @@ body{
 }
 
 #igHeader img:hover {
-  opacity:1;                 /* geen hover-animatie op logo */
+  opacity:1;
 }
 
 /* ===========================
@@ -186,6 +186,7 @@ select:focus{
   margin:0;
   padding:0;
   background:transparent;
+  accent-color:var(--ig-accent); /* Cooke geel */
 }
 
 #scaleCtrl input[type="range"]::-webkit-slider-runnable-track,
@@ -196,22 +197,18 @@ select:focus{
   border-bottom:1px solid rgba(255,255,255,.25);
 }
 
+/* Thumb = Cooke geel */
 #scaleCtrl input[type="range"]::-webkit-slider-thumb,
-#scaleCtrl input[type="range"]::-moz-range-thumb{
+#scaleCtrl input[type="range"]::-moz-range-thumb,
+#scaleCtrl input[type="range"]::-ms-thumb{
   -webkit-appearance:none;
   appearance:none;
   width:12px;
   height:12px;
   border-radius:50%;
-  background:var(--ig-accent);
+  background:var(--ig-accent) !important;
   border:2px solid #000;
   cursor:pointer;
-}
-
-/* hard-force – sommige browsers zijn koppig */
-#scaleCtrl input[type="range"]::-ms-thumb{
-  background:var(--ig-accent);
-  border:2px solid #000;
 }
 
 /* ===========================
@@ -439,27 +436,27 @@ body.dragging, body.dragging *{
 }
 #detailOverlay.active{ display:block; }
 
+/* twee identieke vierkante viewers */
 .detail-view-square{
   position:absolute;
-  width:240px;
-  height:240px;
-  aspect-ratio:1/1;
+  width:260px !important;
+  height:260px !important;
+  max-width:260px;
+  max-height:260px;
+  aspect-ratio:1 / 1 !important;
   overflow:hidden;
   border-radius:4px;
   background:rgba(5,6,8,0.96);
-  box-shadow:0 0 18px rgba(0,0,0,0.9);
+  box-shadow:none !important;
   box-sizing:border-box;
 }
 
-/* Cooke border + glow */
 .detail-view-square::after{
   content:"";
   position:absolute;
   inset:0;
   border:2px solid var(--ig-accent);
-  box-shadow:
-    0 0 16px rgba(245,198,67,0.55),
-    0 0 4px rgba(245,198,67,0.35) inset;
+  box-shadow:none !important;
   pointer-events:none;
 }
 
@@ -467,7 +464,7 @@ body.dragging, body.dragging *{
 .detail-view-square img{
   position:absolute;
   width:300%;
-  height:auto;
+  height:300%;
   object-fit:cover;
   transform-origin:top left;
   border:none;
@@ -527,133 +524,11 @@ body.dragging, body.dragging *{
   box-sizing: border-box;
 }
 
-/* ===========================
-   SCALE SLIDER DOT HARD-FORCE
-   =========================== */
-#scaleCtrl .scale-dot,
-#scaleCtrl .scale-handle {
-  background: var(--ig-accent) !important;
-}
 /* Oude / extra control-balk onderin volledig verbergen */
 .controls:not(.desktop-only):not(.mobile-only){
   display: none !important;
 }
+
 iframe {
   display: none !important;
-}
-/* =========================================
-   FIX: scale-slider bolletje = Cooke geel
-   ========================================= */
-
-/* Als het bolletje via ::before getekend wordt */
-#scaleCtrl::before {
-  background: var(--ig-accent) !important;
-}
-
-/* Voor de echte slider-thumb in alle browsers */
-#scaleCtrl input[type="range"]::-webkit-slider-thumb,
-#scaleCtrl input[type="range"]::-moz-range-thumb,
-#scaleCtrl input[type="range"]::-ms-thumb {
-  background: var(--ig-accent) !important;
-  border: 2px solid #000;
-}
-
-/* =========================================
-   FIX: detail viewer – 2x perfect vierkant,
-   geen dropshadow
-   ========================================= */
-
-.detail-view-square {
-  position: absolute;
-  width: 260px !important;
-  height: 260px !important;
-  max-width: 260px;
-  max-height: 260px;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: 4px;
-  background: rgba(5, 6, 8, 0.96);
-  box-shadow: none !important;      /* shadow weg */
-  box-sizing: border-box;
-}
-
-.detail-view-square::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--ig-accent);  /* gele rand */
-  box-shadow: none !important;         /* shadow weg */
-  pointer-events: none;
-}
-
-/* Zorg dat de images zelf niks geks doen */
-.detail-view-square img {
-  position: absolute;
-  object-fit: cover;
-  border: none;
-  outline: none;
-}
-/* =========================================
-   SCALE SLIDER – BOLLETJE = COOKE GEEL
-   ========================================= */
-
-/* Zorg dat de browser zelf ook geel gebruikt */
-#scaleCtrl input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  accent-color: var(--ig-accent);
-}
-
-/* Thumb in alle browsers geforceerd geel */
-#scaleCtrl input[type="range"]::-webkit-slider-thumb,
-#scaleCtrl input[type="range"]::-moz-range-thumb,
-#scaleCtrl input[type="range"]::-ms-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--ig-accent) !important;
-  border: 2px solid #000;
-  cursor: pointer;
-}
-
-/* =========================================
-   DETAIL VIEWER – 2x PERFECT VIERKANT,
-   GEEN DROPSHADOW
-   ========================================= */
-
-.detail-view-square {
-  position: absolute;
-  width: 260px !important;
-  height: 260px !important;
-  aspect-ratio: 1 / 1 !important;
-  max-width: 260px;
-  max-height: 260px;
-  overflow: hidden;
-  border-radius: 4px;
-  background: rgba(5, 6, 8, 0.96);
-  box-shadow: none !important;       /* shadow weg */
-  box-sizing: border-box;
-}
-
-/* alleen een strakke gele rand, geen glow */
-.detail-view-square::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--ig-accent);
-  box-shadow: none !important;
-  pointer-events: none;
-}
-
-/* inhoud van de zoom – geen rare ratio’s */
-.detail-view-square img {
-  position: absolute;
-  width: 300%;
-  height: 300%;
-  object-fit: cover;
-  border: none;
-  outline: none;
-  transform-origin: top left;
 }
