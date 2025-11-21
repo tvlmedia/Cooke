@@ -38,19 +38,19 @@ body{
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 22px 0 6px; /* compacter */
+  padding: 14px 0 4px;  /* minder dead space */
 }
 
 #igHeader img {
-  height: 120px;          /* flink groter logo */
+  height: 90px;         /* kleiner, Cooke-site achtig */
   width: auto;
   opacity: 1;
-  filter: drop-shadow(0 0 18px rgba(0,0,0,0.7));
-  transition: opacity .2s ease;   /* geen scale-animatie */
+  filter: drop-shadow(0 0 16px rgba(0,0,0,0.7));
+  transition: opacity .2s ease;
 }
 
 #igHeader img:hover {
-  opacity: 1;             /* geen hover-gedrag op logo */
+  opacity: 1;           /* geen hover-gedrag op logo */
 }
 
 /* ===========================
@@ -61,16 +61,16 @@ body{
   top:0;
   z-index:50;
   width:100%;
-  margin:18px 0 20px;
-  padding:14px 16px;
+  margin:10px 0 14px;          /* minder marge */
+  padding:10px 14px;           /* compacter blok */
   border-radius:12px;
   background:linear-gradient(145deg,#050608,#14161b);
   border:1px solid rgba(245,198,67,0.33);
   box-shadow:
-    0 0 26px rgba(0,0,0,0.85),
-    0 0 18px rgba(245,198,67,0.22);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+    0 0 22px rgba(0,0,0,0.85),
+    0 0 14px rgba(245,198,67,0.18);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
 }
 
 select,
@@ -78,18 +78,18 @@ select,
 #toggleButton,
 #fullscreenButton,
 #downloadPdfButton{
-  height:32px;
-  line-height:30px;
-  padding:0 11px;
+  height:28px;                /* lager */
+  line-height:26px;
+  padding:0 10px;
   background:#050608;
   color:var(--ig-text);
   border:1px solid #2c2c2c;
   border-radius:999px;
-  font-size:13px;
+  font-size:12px;             /* iets kleiner */
   letter-spacing:.06em;
   text-transform:uppercase;
   cursor:pointer;
-  transform:none; /* expliciet: nooit schalen */
+  transform:none;
   transition:
     background .18s ease,
     border-color .18s ease,
@@ -106,7 +106,7 @@ select:hover,
   background:var(--ig-accent);
   border-color:var(--ig-accent);
   color:#000;
-  box-shadow:0 0 16px rgba(245,198,67,0.45);
+  box-shadow:0 0 12px rgba(245,198,67,0.4);
   transform:none !important;
 }
 
@@ -126,19 +126,19 @@ select:focus{
 
 #cameraSelect,
 #sensorFormatSelect,
-#focalLength{ min-width:130px; }
+#focalLength{ min-width:120px; }
 #leftLens,
-#rightLens{ min-width:200px; }
+#rightLens{ min-width:180px; }
 #tStopLeftSelect,
-#tStopRightSelect{ min-width:90px; }
+#tStopRightSelect{ min-width:80px; }
 
 /* Scale chip + slider met Cooke accent */
 #scaleCtrl.chip{
   display:inline-flex;
   align-items:center;
-  gap:.5rem;
-  height:32px;
-  padding:0 10px;
+  gap:.4rem;
+  height:28px;
+  padding:0 8px;
   white-space:nowrap;
   background:#050608;
   border:1px solid #2c2c2c;
@@ -146,16 +146,17 @@ select:focus{
 }
 
 #scaleCtrl #scaleVal{
-  min-width:44px;
+  min-width:40px;
   text-align:right;
   color:var(--ig-text-muted);
+  font-size:11px;
 }
 
 #scaleCtrl input[type="range"]{
   -webkit-appearance:none;
   appearance:none;
-  width:120px;
-  height:18px;
+  width:110px;
+  height:16px;
   margin:0;
   padding:0;
   background:transparent;
@@ -163,7 +164,7 @@ select:focus{
 
 #scaleCtrl input[type="range"]::-webkit-slider-runnable-track,
 #scaleCtrl input[type="range"]::-moz-range-track{
-  height:4px;
+  height:3px;
   background:#222;
   border-radius:999px;
   border-bottom:1px solid rgba(255,255,255,.25);
@@ -171,8 +172,8 @@ select:focus{
 
 #scaleCtrl input[type="range"]::-webkit-slider-thumb,
 #scaleCtrl input[type="range"]::-moz-range-thumb{
-  width:14px;
-  height:14px;
+  width:12px;
+  height:12px;
   border-radius:50%;
   background:var(--ig-accent);
   border:2px solid #000;
@@ -348,13 +349,13 @@ body.sbs-mode #toolRoot .frame-1200 {
 #infoContainer{
   width:100%;
   max-width:none;
-  margin:12px 0 10px;
+  margin:10px 0 8px;
   padding:0 40px;
   box-sizing:border-box;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:48px;
+  gap:40px;
   color:var(--ig-text-muted);
 }
 
@@ -365,7 +366,7 @@ body.sbs-mode #toolRoot .frame-1200 {
   flex-direction:column;
   align-items:center;
   text-align:center;
-  gap:10px;
+  gap:8px;
 }
 
 #leftLabel,#rightLabel{
@@ -385,7 +386,7 @@ body.sbs-mode #toolRoot .frame-1200 {
 #lensInfo{
   max-width: 1200px;
   width: 100%;
-  margin: 16px auto 0;
+  margin: 14px auto 0;
   padding: 0 40px;
   box-sizing: border-box;
   text-align: left;
@@ -419,23 +420,26 @@ body.dragging, body.dragging *{
 
 .detail-view-square{
   position:absolute;
-  width:260px;
-  height:260px;
+  width:240px;
+  height:240px;
+  aspect-ratio:1/1;              /* altijd perfect vierkant */
   overflow:hidden;
   border-radius:4px;
   background:rgba(5,6,8,0.96);
   box-shadow:0 0 18px rgba(0,0,0,0.9);
+  box-sizing:border-box;
 }
 
-/* Cooke border + glow */
+/* Cooke border + glow – altijd geel, geen wit */
 .detail-view-square::after{
   content:"";
   position:absolute;
   inset:0;
-  border:2px solid rgba(245,198,67,0.85);
+  border:2px solid var(--ig-accent);
   box-shadow:
     0 0 16px rgba(245,198,67,0.55),
     0 0 4px rgba(245,198,67,0.35) inset;
+  pointer-events:none;
 }
 
 /* inhoud (zoom) */
@@ -445,6 +449,8 @@ body.dragging, body.dragging *{
   height:auto;
   object-fit:cover;
   transform-origin:top left;
+  border:none;
+  outline:none;
 }
 
 #leftDetail  { margin-left: -100px; }
@@ -515,10 +521,10 @@ body.dragging, body.dragging *{
   box-sizing:border-box;
 }
 
-/* row-1: alles op één regel */
+/* row-1: alles op één regel, strakker */
 .controls.desktop-only .row-1 {
   flex-wrap: nowrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .controls.desktop-only .row-1 select,
@@ -526,20 +532,20 @@ body.dragging, body.dragging *{
 .controls.desktop-only .row-1 #scaleCtrl {
   min-width: auto;
   padding: 0 8px;
-  font-size: 12px;
-  height: 30px;
-  line-height: 30px;
+  font-size: 11px;
+  height: 26px;
+  line-height: 24px;
 }
 
 /* camera + sensor dropdowns iets smaller */
 .controls.desktop-only .row-1 #cameraSelect,
 .controls.desktop-only .row-1 #sensorFormatSelect {
-  min-width: 110px;
+  min-width: 105px;
 }
 
 /* flare toggle specifiek iets smaller */
 #flareToggle {
-  min-width: 95px !important;
+  min-width: 90px !important;
   padding: 0 8px !important;
 }
 
