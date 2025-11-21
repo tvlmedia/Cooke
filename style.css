@@ -61,20 +61,23 @@ body{
    CONTROLS (los van viewer)
    =========================== */
 .controls.desktop-only{
-  position:sticky;
-  top:0;
-  z-index:50;
-  width:100%;
-  margin:10px 0 14px;          /* minder marge */
-  padding:10px 14px;           /* compacter blok */
-  border-radius:12px;
-  background:linear-gradient(145deg,#050608,#14161b);
-  border:1px solid rgba(245,198,67,0.33);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  /* zelfde breedte + centrering als logo / toolRoot */
+  width: min(1200px, 96vw);
+  margin: 10px auto 14px;      /* auto = centreren */
+
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(145deg,#050608,#14161b);
+  border: 1px solid rgba(245,198,67,0.33);
   box-shadow:
     0 0 22px rgba(0,0,0,0.85),
     0 0 14px rgba(245,198,67,0.18);
-  backdrop-filter:blur(9px);
-  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
 }
 
 select,
