@@ -6,18 +6,20 @@
   --sensor-scale: 1;
   --viewer-scale: 1;
 
-  /* IronGlass-ish branding */
-  --ig-bg: #050505;
-  --ig-panel: #101010;
-  --ig-panel-soft: rgba(10,10,10,0.9);
-  --ig-border: #222;
-  --ig-border-soft: rgba(255,255,255,0.08);
-  --ig-accent: #ff7c00;
-  --ig-accent-soft: rgba(255,124,0,0.18);
-  --ig-text: #f5f5f5;
-  --ig-text-muted: #9c9c9c;
-}
+  /* Cooke-ish branding */
+  --ig-bg: #050608; /* bijna zwart, heel licht koel */
+  --ig-panel: #0c0e11;
+  --ig-panel-soft: rgba(10, 12, 15, 0.92);
+  --ig-border: #262626;
+  --ig-border-soft: rgba(255, 255, 255, 0.06);
 
+  /* Cooke yellow */
+  --ig-accent: #f5c643;
+  --ig-accent-soft: rgba(245, 198, 67, 0.22);
+
+  --ig-text: #f7f7f7;
+  --ig-text-muted: #a3a3a3;
+}
 body{
   margin:0;
   background:var(--ig-bg);
@@ -25,25 +27,25 @@ body{
   font-family:"Inter","Helvetica Neue",sans-serif;
   font-size:14px;
   line-height:1.6;
-  /* FLEX WEG: dus NIET meer display:flex / align-items:center hier */
 }
 #igHeader {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 20px 0 6px;          /* iets compacter onder */
+  padding: 24px 0 10px;
 }
 
 #igHeader img {
-  height: 64px;                 /* groter logo */
+  height: 56px;
   width: auto;
   opacity: 0.95;
-  filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
-  transition: opacity .2s ease;
+  filter: drop-shadow(0 0 22px rgba(0,0,0,0.85));
+  transition: opacity .2s ease, transform .2s ease;
 }
 
 #igHeader img:hover {
   opacity: 1;
+  transform: scale(1.03);
 }
 /* ===========================
    CONTROLS (los van viewer)
@@ -52,30 +54,19 @@ body{
   position:sticky;
   top:0;
   z-index:50;
-
-  width:100%;          /* laten staan */
-  max-width:none;      /* <-- deze mag je weghalen, of op none zetten */
-  margin:18px 0 20px;  /* geen auto meer nodig binnen toolRoot */
+  width:100%;
+  margin:18px 0 20px;
 
   padding:14px 16px;
   border-radius:12px;
-  background:linear-gradient(145deg,#0a0a0a,#141414);
-  border:1px solid rgba(255,124,0,0.18);
+  background:linear-gradient(145deg,#050608,#14161b);
+  border:1px solid rgba(245,198,67,0.33);
   box-shadow:
-    0 0 22px rgba(255,124,0,0.15),
-    0 4px 10px rgba(0,0,0,0.6);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
+    0 0 26px rgba(0,0,0,0.85),
+    0 0 18px rgba(245,198,67,0.22);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
 }
-
-.controls.desktop-only .row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:8px 10px;
-}
-.controls.desktop-only .row-2{ margin-top:6px; }
 
 select,
 .control-button,
@@ -83,12 +74,12 @@ select,
   height:32px;
   line-height:30px;
   padding:0 11px;
-  background:#111;
+  background:#050608;
   color:var(--ig-text);
-  border:1px solid #333;
-  border-radius:999px;              /* pill shape, net als IronGlass */
+  border:1px solid #2c2c2c;
+  border-radius:999px;
   font-size:13px;
-  letter-spacing:.02em;
+  letter-spacing:.06em;
   text-transform:uppercase;
   cursor:pointer;
   transition:
@@ -105,8 +96,9 @@ select:hover,
   background:var(--ig-accent);
   border-color:var(--ig-accent);
   color:#000;
-  box-shadow:0 0 12px rgba(255,124,0,0.45);
+  box-shadow:0 0 16px rgba(245,198,67,0.45);
 }
+
 .control-button:active,
 select:active{
   transform:translateY(0.5px) scale(0.99);
@@ -118,12 +110,6 @@ select:focus{
   outline:none;
   box-shadow:0 0 0 1px var(--ig-accent-soft),0 0 0 3px rgba(0,0,0,.9);
   border-color:var(--ig-accent);
-}
-
-.control-button:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-  box-shadow:none;
 }
 
 #cameraSelect,#sensorFormatSelect,#focalLength{ min-width:130px; }
@@ -138,8 +124,8 @@ select:focus{
   height:32px;
   padding:0 10px;
   white-space:nowrap;
-  background:#111;
-  border:1px solid #333;
+  background:#050608;
+  border:1px solid #2c2c2c;
   border-radius:999px;
 }
 #scaleCtrl #scaleVal{
@@ -147,38 +133,14 @@ select:focus{
   text-align:right;
   color:var(--ig-text-muted);
 }
-#scaleCtrl input[type="range"]{
-  -webkit-appearance:none;
-  appearance:none;
-  width:120px;
-  height:18px;
-  margin:0;
-  padding:0;
-  background:transparent;
-}
-#scaleCtrl input[type="range"]::-webkit-slider-runnable-track{
-  height:4px;
-  background:#222;
-  border-radius:999px;
-  border-bottom:1px solid rgba(255,255,255,.35);
-}
+#scaleCtrl input[type="range"]::-webkit-slider-runnable-track,
 #scaleCtrl input[type="range"]::-moz-range-track{
   height:4px;
   background:#222;
   border-radius:999px;
-  border-bottom:1px solid rgba(255,255,255,.35);
+  border-bottom:1px solid rgba(255,255,255,.25);
 }
-#scaleCtrl input[type="range"]::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  appearance:none;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:var(--ig-accent);
-  border:2px solid #000;
-  margin-top:-5px;
-  cursor:pointer;
-}
+#scaleCtrl input[type="range"]::-webkit-slider-thumb,
 #scaleCtrl input[type="range"]::-moz-range-thumb{
   width:14px;
   height:14px;
@@ -207,10 +169,11 @@ select:focus{
   content:"";
   position:absolute;
   inset:0;
-  border:1px solid rgba(226,107,0,0.38); /* iets dieper oranje */
-  box-shadow:0 0 16px rgba(226,107,0,0.22);
+  border:1px solid rgba(245,198,67,0.33);
+  box-shadow:0 0 18px rgba(0,0,0,0.9);
   pointer-events:none;
 }
+
 
 /* Rechter laag (before) + Linker laag (after) */
 #beforeImage{ position:absolute; inset:0; }
@@ -368,19 +331,20 @@ body.dragging, body.dragging *{ user-select:none !important; -webkit-user-select
   width:260px;
   height:260px;
   overflow:hidden;
+  border-radius:4px;
 
-  /* IronGlass branding */
-  border:2px solid rgba(255,124,0,0.55);        /* oranje rand */
-  background:rgba(5,5,5,0.92);                 /* donkere matte achtergrond */
+  background:rgba(5,6,8,0.96);
+  box-shadow:0 0 18px rgba(0,0,0,0.9);
+}
+
+.detail-view-square::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:2px solid rgba(245,198,67,0.85);
   box-shadow:
-    0 0 18px rgba(255,124,0,0.35),             /* glow */
-    0 0 4px rgba(255,124,0,0.25) inset;        /* subtiele inner glow */
-
-  pointer-events:none;
-  border-radius:4px;                            /* kleine radius zoals hun UI */
-  will-change:transform;
-  -webkit-backface-visibility:hidden;
-  backface-visibility:hidden;
+    0 0 16px rgba(245,198,67,0.55),
+    0 0 4px rgba(245,198,67,0.35) inset;
 }
 .detail-view-square img{ position:absolute; width:300%; height:auto; object-fit:cover; transform-origin:top left; }
 #leftDetail{ margin-left:-130px; } #rightDetail{ margin-left:130px; }
@@ -698,14 +662,10 @@ body.sbs-mode #toolRoot .frame-1200 {
   color: var(--ig-accent);
   font-weight: 700;
 }
-/* 1) In SxS: hele toolRoot breder maken (viewer volgt mee) */
-body.sbs-mode #toolRoot {
-  width: min(1600px, 96vw);   /* maak hier gerust 1800px van als je wilt */
+body.sbs-mode #sbsWrapper .pane{
+  border:1px solid rgba(245,198,67,0.33) !important;
 }
-
-/* 2) Maar: controls-balk zelf blijft "normaal" (±1200px) en gecentreerd */
-body.sbs-mode .controls.desktop-only {
-  max-width: 1200px;          /* niet breder dan dit */
-  margin-left: auto;
-  margin-right: auto;         /* centreren binnen bredere toolRoot */
+body.sbs-mode #sbsWrapper::before{
+  background: var(--ig-accent) !important;
+  box-shadow: 0 0 14px rgba(245,198,67,0.55) !important;
 }
