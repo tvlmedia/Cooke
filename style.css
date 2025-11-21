@@ -38,7 +38,7 @@ body{
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 22px 0 6px; /* minder zwarte ruimte */
+  padding: 22px 0 6px; /* compacter */
 }
 
 #igHeader img {
@@ -75,7 +75,9 @@ body{
 
 select,
 .control-button,
-#toggleButton,#fullscreenButton,#downloadPdfButton{
+#toggleButton,
+#fullscreenButton,
+#downloadPdfButton{
   height:32px;
   line-height:30px;
   padding:0 11px;
@@ -87,6 +89,7 @@ select,
   letter-spacing:.06em;
   text-transform:uppercase;
   cursor:pointer;
+  transform:none; /* expliciet: nooit schalen */
   transition:
     background .18s ease,
     border-color .18s ease,
@@ -104,12 +107,14 @@ select:hover,
   border-color:var(--ig-accent);
   color:#000;
   box-shadow:0 0 16px rgba(245,198,67,0.45);
+  transform:none !important;
 }
 
 /* Actief: GEEN scale meer */
 .control-button:active,
 select:active{
   box-shadow:none;
+  transform:none !important;
 }
 
 .control-button:focus,
@@ -119,9 +124,13 @@ select:focus{
   border-color:var(--ig-accent);
 }
 
-#cameraSelect,#sensorFormatSelect,#focalLength{ min-width:130px; }
-#leftLens,#rightLens{ min-width:200px; }
-#tStopLeftSelect,#tStopRightSelect{ min-width:90px; }
+#cameraSelect,
+#sensorFormatSelect,
+#focalLength{ min-width:130px; }
+#leftLens,
+#rightLens{ min-width:200px; }
+#tStopLeftSelect,
+#tStopRightSelect{ min-width:90px; }
 
 /* Scale chip + slider met Cooke accent */
 #scaleCtrl.chip{
@@ -277,7 +286,6 @@ select:focus{
 #sbsWrapper{ position:absolute; inset:0; z-index:3; display:none; padding:0; box-sizing:border-box; }
 .sbs-mode #sbsWrapper{ display:flex; width:100%; height:100%; }
 
-/* SxS-container vult de viewer */
 body.sbs-mode #sbsWrapper{
   display:flex !important;
   position:absolute; inset:0;
@@ -431,7 +439,6 @@ body.dragging, body.dragging *{
 }
 
 /* inhoud (zoom) */
-detail-view-square img,
 .detail-view-square img{
   position:absolute;
   width:300%;
@@ -537,7 +544,8 @@ detail-view-square img,
 }
 
 /* mobiele embed uit op desktop */
-.lens-frame-outer, .lens-frame-outer.mobile-only {
+.lens-frame-outer,
+.lens-frame-outer.mobile-only {
   display:none !important;
 }
 @media (max-width:767px){
