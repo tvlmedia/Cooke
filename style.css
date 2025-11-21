@@ -38,22 +38,21 @@ body{
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 24px 0 10px;
+  padding: 38px 0 18px; /* meer bovenruimte */
 }
 
 #igHeader img {
-  height: 56px;
+  height: 92px;          /* groter, mooi zoals Cooke */
   width: auto;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 22px rgba(0,0,0,0.85));
-  transition: opacity .2s ease, transform .2s ease;
-}
-
-#igHeader img:hover {
   opacity: 1;
-  transform: scale(1.03);
+  filter: drop-shadow(0 0 18px rgba(0,0,0,0.7));
+  transition: opacity .2s ease;   /* alleen fade, geen scale */
 }
 
+/* Haal de scale volledig weg */
+#igHeader img:hover {
+  opacity: 1;            /* geen verandering */
+}
 /* ===========================
    CONTROLS (los van viewer)
    =========================== */
