@@ -214,17 +214,23 @@ const notes = {
   "ironglass_mkii_75mm": "85mm"
 };
 
-// Voor deze Cooke-tool volgen de bestandsnamen gewoon
-// het standaardpatroon, dus we hebben geen speciale map nodig.
-// De resolver probeert automatisch o.a.:
-//   cooke_panchro_ff_32mm_t2_8_flare.jpg
-//   cooke_panchro_ff_32mm_t2_8_noflare.jpg
-//   ironglass_mkii_37mm_t2_8_flare.jpg
-//   ironglass_mkii_37mm_t2_8_noflare.jpg
+// Expliciete mapping van UI-focal → echte file
+// (35mm UI gebruikt 32mm / 37mm files, 75mm UI gebruikt 75mm / 85mm)
 const lensImageMap = {
-  // leeg laten zolang alles netjes cooke_panchro_ff_XXmm_t2_8_(no)flare.jpg heet
-};
+  // COOKE PANCHRO FF
+  "cooke_panchro_ff_35mm_t2_8_noflare": "cooke_panchro_ff_32mm_t2_8_noflare.jpg",
+  "cooke_panchro_ff_35mm_t2_8_flare":   "cooke_panchro_ff_32mm_t2_8_flare.jpg",
 
+  "cooke_panchro_ff_75mm_t2_8_noflare": "cooke_panchro_ff_75mm_t2_8_noflare.jpg",
+  "cooke_panchro_ff_75mm_t2_8_flare":   "cooke_panchro_ff_75mm_t2_8_flare.jpg",
+
+  // IRONGLASS MKII
+  "ironglass_mkii_35mm_t2_8_noflare":   "ironglass_mkii_37mm_t2_8_noflare.jpg",
+  "ironglass_mkii_35mm_t2_8_flare":     "ironglass_mkii_37mm_t2_8_flare.jpg",
+
+  "ironglass_mkii_75mm_t2_8_noflare":   "ironglass_mkii_85mm_t2_8_noflare.jpg",
+  "ironglass_mkii_75mm_t2_8_flare":     "ironglass_mkii_85mm_t2_8_flare.jpg",
+};
 // Tekst + links voor onder de viewer en in de PDF
 const lensDescriptions = {
   "Cooke Panchro FF": {
@@ -303,10 +309,29 @@ function updateLensInfo(){ const L=leftSelect.value,R=rightSelect.value; lensInf
 
 /* === Image resolver === */
 function aliasFor(lens, nominal){ return notes[`${lens}_${nominal}`] || nominal; }
-function resolveImagePath(lens, nominalFocal, tStr, flare){
-  const alias=aliasFor(lens,nominalFocal), bases= alias!==nominalFocal ? [`${lens}_${alias}_t${tStr}`,`${lens}_${nominalFocal}_t${tStr}`] : [`${lens}_${nominalFocal}_t${tStr}`];
-  const list=[]; bases.forEach(b=>{ if(lensImageMap[`${b}_${flare}`]) list.push(lensImageMap[`${b}_${flare}`]); if(lensImageMap[b]) list.push(lensImageMap[b]); list.push(`${b}_${flare}.jpg`,`${b}.jpg`); });
-  return IMG_BASE+list[0];
+function resolveImagePath(lens, nominalFocal, tStr, flare) {
+  // 1) Eerst kijken of we een expliciete mapping hebben
+  const baseKey = `${lens}_${nominalFocal}_t${tStr}`;
+  const mapped =
+    lensImageMap[`${baseKey}_${flare}`] ||
+    lensImageMap[baseKey];
+
+  if (mapped) {
+    return IMG_BASE + mapped;
+  }
+
+  // 2) Fallback: generiek patroon gebruiken
+  const alias = aliasFor(lens, nominalFocal);
+  const bases = alias !== nominalFocal
+    ? [`${lens}_${alias}_t${tStr}`, baseKey]
+    : [baseKey];
+
+  const list = [];
+  bases.forEach(b => {
+    list.push(`${b}_${flare}.jpg`, `${b}.jpg`);
+  });
+
+  return IMG_BASE + list[0];
 }
 function updateImages(){
   const LL=leftSelect.value.toLowerCase().replace(/\s+/g,"_"), RR=rightSelect.value.toLowerCase().replace(/\s+/g,"_");
@@ -330,7 +355,7 @@ function updateImages(){
 }
 
 /* === Init defaults === */
-leftSelect.value="IronGlass Red P"; rightSelect.value="IronGlass Zeiss Jena"; focalLengthSelect.value="35mm"; tStopLeftSelect.value="2.8"; tStopRightSelect.value="2.8";
+leftSelect.value="Cooke Panchro FF"; rightSelect.value="IronGlass MKII"; focalLengthSelect.value="35mm"; tStopLeftSelect.value="2.8"; tStopRightSelect.value="2.8";
 updateLensInfo(); updateImages();
 cameraSelect.value="Sony Venice"; cameraSelect.dispatchEvent(new Event("change"));
 
