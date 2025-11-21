@@ -541,3 +541,55 @@ body.dragging, body.dragging *{
 iframe {
   display: none !important;
 }
+/* =========================================
+   FIX: scale-slider bolletje = Cooke geel
+   ========================================= */
+
+/* Als het bolletje via ::before getekend wordt */
+#scaleCtrl::before {
+  background: var(--ig-accent) !important;
+}
+
+/* Voor de echte slider-thumb in alle browsers */
+#scaleCtrl input[type="range"]::-webkit-slider-thumb,
+#scaleCtrl input[type="range"]::-moz-range-thumb,
+#scaleCtrl input[type="range"]::-ms-thumb {
+  background: var(--ig-accent) !important;
+  border: 2px solid #000;
+}
+
+/* =========================================
+   FIX: detail viewer – 2x perfect vierkant,
+   geen dropshadow
+   ========================================= */
+
+.detail-view-square {
+  position: absolute;
+  width: 260px !important;
+  height: 260px !important;
+  max-width: 260px;
+  max-height: 260px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(5, 6, 8, 0.96);
+  box-shadow: none !important;      /* shadow weg */
+  box-sizing: border-box;
+}
+
+.detail-view-square::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--ig-accent);  /* gele rand */
+  box-shadow: none !important;         /* shadow weg */
+  pointer-events: none;
+}
+
+/* Zorg dat de images zelf niks geks doen */
+.detail-view-square img {
+  position: absolute;
+  object-fit: cover;
+  border: none;
+  outline: none;
+}
