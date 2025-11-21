@@ -229,12 +229,12 @@ const lensImageMap = {
 const lensDescriptions = {
   "Cooke Panchro FF": {
     text:
-      "Full-frame Cooke Panchro Classic FF: moderne herinterpretatie van de legendarische Speed Panchro look. Zachte contrastovergangen, subtiele halation en typisch Cooke ‘warm & creamy’ skin tones.",
+      "Full-frame Cooke Panchro Classic FF: a modern reinterpretation of the legendary Speed Panchro look. Soft contrast roll-off, subtle halation, and the iconic Cooke warm, creamy skin tones.",
     url: "https://cookeoptics.com/lens/cooke-panchro-classic-i-ff/"
   },
   "IronGlass MKII": {
     text:
-      "De IronGlass MKII Soviet set is, na de RED P, de meest intense variant: zwaar getweakte vintage Sovjet-lenzen met veel karakter, flare en distortion. Ideaal voor een rauwe, experimentele look.",
+      "The IronGlass MKII Soviet set is — after the RED P — the most intense variant: heavily-tuned vintage Soviet optics with strong character, bold flare, and distortion. Ideal for raw, experimental, stylised visuals.",
     url: "https://ironglassadapters.com/rehoused-soviet-lenses/mkii/"
   }
 };
